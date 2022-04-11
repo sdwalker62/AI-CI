@@ -5,7 +5,7 @@ import os
 # Append main directory
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
-from test_functions import *
+from test_functions import add_one
 
 """
 This file contains various toy test cases for testing out dagger.io
