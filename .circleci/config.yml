@@ -25,6 +25,6 @@ workflows:
   discord_test:
     triggers:
         - schedule:
-            cron: "*/5 * * * *"
+            cron: "5 * * * *"
     jobs: 
       - discord_test
