@@ -2,7 +2,10 @@ name: start-sonarqube
 
 on:
   schedule:
-    - cron: '45 15 * * *'
+    - cron: '58 15 * * *'
+
+env:
+  DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
 
 jobs:
   start_sonarqube:
@@ -11,4 +14,4 @@ jobs:
       - name: Discord
         uses: Ilshidur/action-discord@master
         with:
-          args: 'The peer team sucks'
+          args: '@everyone peer team sucks - GitHub Team'
