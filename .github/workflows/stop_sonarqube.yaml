@@ -2,7 +2,7 @@ name: stop-sonarqube
 
 on:
   schedule:
-    - cron: '34 15 * * *'
+    - cron: '47 11 * * *'
 
 jobs:
   start_sonarqube:
@@ -11,4 +11,4 @@ jobs:
       - name: Discord
         uses: Ilshidur/action-discord@master
         with:
-          args: 'j/k'
+          args: '@everyone peer team sucks - GitHub Team'
