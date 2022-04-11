@@ -44,4 +44,4 @@ jobs:
       - name: Discord
         uses: Ilshidur/action-discord@master
         with:
-          args: 'SonarQube for {{ EVENT_PAYLOAD.repository.full_name }} has finished!'
+          args: 'SonarQube for {{ EVENT_PAYLOAD.repository.full_name }} has finished'
