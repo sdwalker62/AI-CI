@@ -1,0 +1,14 @@
+name: start-sonarqube
+
+on:
+  schedule:
+    - cron: '*/1 * * * *'
+
+jobs:
+  start_sonarqube:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'The peer team sucks'

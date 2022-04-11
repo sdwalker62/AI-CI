@@ -1,0 +1,14 @@
+name: stop-sonarqube
+
+on:
+  schedule:
+    - cron: '34 15 * * *'
+
+jobs:
+  start_sonarqube:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'j/k'
