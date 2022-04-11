@@ -2,7 +2,7 @@ name: start-sonarqube
 
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '45 15 * * *'
 
 jobs:
   start_sonarqube:
