@@ -1,12 +1,9 @@
 name: ai-ml
 
-# on:
-#   push:
-#     branches:
-#       - ci_test
 on:
-  schedule:
-    - cron: '0 0 * * *'
+  push:
+    branches:
+      - master
 
 env:
   DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
