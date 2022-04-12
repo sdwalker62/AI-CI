@@ -15,7 +15,7 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
       - name: Execute pipeline
-        run: 'ls'
+        run: './run_pipeline.sh'
         shell: bash
       - name: Discord
         uses: Ilshidur/action-discord@master
@@ -34,7 +34,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
-          projectBaseDir: "./test_app/"
+          projectBaseDir: "./src/"
           projectKey: "TestAppProjectKey"
           projectName: "TestAppProjectName"
       # If you wish to fail your job when the Quality Gate is red, uncomment the
