@@ -23,7 +23,7 @@ jobs:
       - name: Discord
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Bash script run for {{ EVENT_PAYLOAD.repository.full_name }} has completed.'
+          args: 'Python script for {{ EVENT_PAYLOAD.repository.full_name }} has completed successfully.'
           
   sonarQubeTrigger:
     name: SonarQube Trigger
@@ -38,8 +38,6 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
           projectBaseDir: "./src/"
-          projectKey: "TestAppProjectKey"
-          projectName: "TestAppProjectName"
       # If you wish to fail your job when the Quality Gate is red, uncomment the
       # following lines. This would typically be used to fail a deployment.
       # - uses: sonarsource/sonarqube-quality-gate-action@master
