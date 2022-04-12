@@ -14,9 +14,12 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
-      - name: Execute pipeline
-        run: 'sh ./run_pipeline.sh'
-        shell: bash
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: execute py script # run the run.py to get the latest data
+        run: python ci_pipeline.py
       - name: Discord
         uses: Ilshidur/action-discord@master
         with:
