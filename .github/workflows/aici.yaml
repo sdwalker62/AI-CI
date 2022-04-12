@@ -3,26 +3,23 @@ name: ai-ml
 on:
   push:
     branches:
-      - master
+      - dagger_dockerfile
 
 env:
   DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
 
 jobs:
-  dagger:
+  CI:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
-      - name: Test
-        uses: dagger/dagger-for-github@v2
-        with:
-          workdir: ./
-          args: do test
+        run: '../../run_pipeline.sh'
+        shell: bash
       - name: Discord
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Dagger run for {{ EVENT_PAYLOAD.repository.full_name }} has been passed.'
+          args: 'Bash script run for {{ EVENT_PAYLOAD.repository.full_name }} has completed.'
           
   sonarQubeTrigger:
     name: SonarQube Trigger
