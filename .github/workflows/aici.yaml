@@ -15,7 +15,7 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
       - name: Execute pipeline
-        run: './run_pipeline.sh'
+        run: 'sh ./run_pipeline.sh'
         shell: bash
       - name: Discord
         uses: Ilshidur/action-discord@master
