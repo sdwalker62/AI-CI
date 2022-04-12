@@ -1,4 +1,4 @@
-from src.scripts.test_functions import add_one, subtract_one
+from scripts.test_functions import add_one, subtract_one
 
 import unittest
 

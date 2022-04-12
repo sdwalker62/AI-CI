@@ -1,96 +1,38 @@
-package forge
+package aiml_ci
 
 import (
     "dagger.io/dagger"
-    "dagger.io/dagger/core"
+    // "dagger.io/dagger/core"
     // "universe.dagger.io/bash"
     "universe.dagger.io/docker"
 )
 
-// Write a greeting to a file, and add it to a directory
-#AddHello: {
-    // The input directory
-    dir: dagger.#FS
-
-    // The name of the person to greet
-    name: string | *"world"
-
-    write: core.#WriteFile & {
-        input: dir
-        path: "hello-\(name).txt"
-        contents: "hello, \(name)!"
-    }
-
-    // The directory with greeting message added
-    result: write.output
+#BuildTestImage: docker.#Dockerfile & {
+    dockerfile: contents: """
+        FROM python:3.9
+        COPY . .
+        RUN pip install -r requirements.txt
+        CMD sh run_tests.sh
+        """
 }
 
-#CoverageReport: {
-    // The input directory
-    dir: dagger.#FS
-
-    // The name of the person to greet
-    name: string | *"world"
-
-    write: core.#WriteFile & {
-        input: dir
-        path: "hello-\(name).txt"
-        contents: "hello, \(name)!"
-    }
-
-    copy: core.#Copy & {
-        input: dir
-        source: "hello-\(name).txt"
-        destination: "thiswascopied.txt"
-    }
-
-    result: copy.output
-}
 
 dagger.#Plan & {
-    // client: filesystem: ".": read: contents: dagger.#FS
-
-    actions: {
-        hello: #AddHello & {
-            dir: client.filesystem.".".read.contents
-        },
-        stuff: #CoverageReport & {
-            dir: client.filesystem.".".read.contents
-        }
-        test: {
-            build: docker.#Build & {
-                steps: [
-                    docker.#Pull & {
-                        source: "python:3.9"
-                    },
-                    docker.#Copy & {
-                        contents: client.filesystem."./src".read.contents
-                        dest: "/"
-                    },
-                    docker.#Run & {
-                        command: {
-                            name: "pip"
-                            args: ["install", "coverage"]
-                        }
-                    }         
-                    // docker.#Set & {
-                    //     config: cmd: ["python", "/unit_tests/unit_tests.py"]
-                    // }
-                ]
-            }
-            run: { 
-                docker.#Run & {
-                    input: build.output
-                    command: {
-                        name: "sh"
-                        args: ["run_tests.sh"]
-                    }
-                }
-            }
-        }
+    client: {
+        filesystem: "./src": read: contents: dagger.#FS
+        network: "unix:///var/run/docker.sock": connect: dagger.#Socket
     }
-    client: filesystem: ".": {
-        read: contents: dagger.#FS
-        write: contents: actions.stuff.result
+
+    actions: test: {
+        build: #BuildTestImage & {
+            source: client.filesystem."./src".read.contents
+        }
+        exec_tests: docker.#Run & {
+            input: build.output
+            mounts: docker: {
+                dest:     "."
+                contents: client.network."unix:///var/run/docker.sock".connect
+            }
+        }
     }
 }
