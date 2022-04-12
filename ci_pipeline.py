@@ -76,7 +76,11 @@ if os.path.isfile('./Dockerfile.ci'):
     # RUN CONTAINER
     # ======================================================
     logging.info('Executing pipeline ... ')
-    ci_container = client.containers.run(image='ai_ci', detach=True)
+    ci_container = client.containers.run(
+        image='ai_ci', 
+        detach=True,
+        volumes=['./coverage:$HOME/coverage/']
+    )
     process = ci_container.logs(stream=True, follow=True)
     for line in process:
         logging.info(line.decode('utf-8').replace('\n', ''))
