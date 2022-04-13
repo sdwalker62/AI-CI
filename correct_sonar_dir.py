@@ -17,7 +17,7 @@ if os.path.isfile('./coverage.xml'):
     with open('./new_coverage.xml', 'w') as new_cov, open('./coverage.xml', 'r') as old_cov:
         for line in old_cov.readlines():
             if '.src' in line:
-                new_line = line.replace('.src', 'src')
+                new_line = line.replace('.src', '/src')
                 new_cov.write(new_line)
             else:
                 new_cov.write(line)
