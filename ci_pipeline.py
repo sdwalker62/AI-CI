@@ -76,7 +76,7 @@ if os.path.isfile('./Dockerfile.ci'):
     # RUN CONTAINER
     # ======================================================
     logging.info('Executing pipeline ... ')
-    pwd = run_cmd("pwd");
+    pwd = run_cmd("pwd").replace('\n', '')
     ci_container = client.containers.run(
         image='ai_ci', 
         detach=True,
