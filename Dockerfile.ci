@@ -1,4 +1,5 @@
 FROM python:3.9
-COPY src .
-RUN pip install -r requirements.txt
-CMD sh run_tests.sh
+RUN mkdir src
+COPY src ./src
+RUN pip install -r ./src/requirements.txt
+CMD sh ./src/run_tests.sh
