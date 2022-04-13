@@ -6,7 +6,7 @@
 		<source></source>
 	</sources>
 	<packages>
-		<package name=".src.scripts" line-rate="1" branch-rate="0" complexity="0">
+		<package name="src.scripts" line-rate="1" branch-rate="0" complexity="0">
 			<classes>
 				<class name="test_functions.py" filename="/src/scripts/test_functions.py" complexity="0" line-rate="1" branch-rate="0">
 					<methods/>
@@ -19,7 +19,7 @@
 				</class>
 			</classes>
 		</package>
-		<package name=".src.unittests" line-rate="1" branch-rate="0" complexity="0">
+		<package name="src.unittests" line-rate="1" branch-rate="0" complexity="0">
 			<classes>
 				<class name="addone_test.py" filename="/src/unittests/addone_test.py" complexity="0" line-rate="1" branch-rate="0">
 					<methods/>
