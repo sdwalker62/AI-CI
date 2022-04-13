@@ -86,11 +86,10 @@ if os.path.isfile('./Dockerfile.ci'):
         logging.info(line.decode('utf-8').replace('\n', ''))
     
     check_mark()
-    logging.info('Transmitting to SonarQube ... ')
-    # scp_cmd = 'scp -i "sonarqube.pem" /home/ubuntu/coverage/coverage.xml ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:~/sonarqube'
-    scp_cmd = "ls"
-    run_cmd(scp_cmd)
-    check_mark()
+    # logging.info('Transmitting to SonarQube ... ')
+    # scp_cmd = 'scp -i "sonarqube.pem" ./coverage.xml ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:~/sonarqube'
+    # logging.info(run_cmd(scp_cmd))
+    # check_mark()
 else:
     logging.warn('No Dockerfile found!')
     
