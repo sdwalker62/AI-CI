@@ -76,10 +76,11 @@ if os.path.isfile('./Dockerfile.ci'):
     # RUN CONTAINER
     # ======================================================
     logging.info('Executing pipeline ... ')
+    pwd = run_cmd("pwd");
     ci_container = client.containers.run(
         image='ai_ci', 
         detach=True,
-        volumes=['/Users/andrewromans/Dev/Work/AI-CI/.github/workflows:/home/ubuntu/coverage']
+        volumes=[f'{pwd}/.github/workflows:/home/ubuntu/coverage']
     )
     process = ci_container.logs(stream=True, follow=True)
     for line in process:
