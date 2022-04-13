@@ -28,6 +28,7 @@ jobs:
   sonarQubeTrigger:
     name: SonarQube Trigger
     runs-on: ubuntu-latest
+    needs: CI
     steps:
       - uses: actions/checkout@v2
         with:
