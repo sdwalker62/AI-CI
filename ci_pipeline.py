@@ -79,7 +79,7 @@ if os.path.isfile('./Dockerfile.ci'):
     ci_container = client.containers.run(
         image='ai_ci', 
         detach=True,
-        volumes=['./.github/workflows:/home/ubuntu/coverage/']
+        volumes=['/Users/andrewromans/Dev/Work/AI-CI/.github/workflows:/home/ubuntu/coverage']
     )
     process = ci_container.logs(stream=True, follow=True)
     for line in process:
