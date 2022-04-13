@@ -87,7 +87,7 @@ if os.path.isfile('./Dockerfile.ci'):
     
     check_mark()
     logging.info('Transmitting to SonarQube ... ')
-    scp_cmd = 'scp -i "sonarqube.pem" coverage/coverage.xml ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:/sonarqube'
+    scp_cmd = 'scp -i "sonarqube.pem" /home/ubuntu/coverage/coverage.xml ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:~/sonarqube'
     run_cmd(scp_cmd)
     check_mark()
 else:
