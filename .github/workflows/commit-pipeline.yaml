@@ -20,15 +20,23 @@ jobs:
     steps:
       - name: Clone Repository
         uses: actions/checkout@v2
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: Install Black
-        run: pip install black
       - name: Running Black
-        run: black ./src
+        uses: lgeiger/black-action@v1.0.1
+        with:
+          args: ./src
+        run: pip install black
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
+      - name: Push changes
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --global user.name 'Samuel Walker'
+          git config --global user.email 'samuel-walker@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
+          git commit -am "Automated changes"
+          git push
       - name: Discord
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Formatting for {{ EVENT_PAYLOAD.repository.full_name }} has completed successfully.'
+          args: 'Formatting {{ EVENT_PAYLOAD.repository.full_name }} has completed successfully.'
