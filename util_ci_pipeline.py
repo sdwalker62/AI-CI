@@ -8,7 +8,12 @@ import functools
 import logging
 
 
-logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
+logging.basicConfig \
+(
+    format='%(asctime)s - %(message)s', 
+    datefmt='%d-%b-%y %H:%M:%S', 
+    level=logging.INFO
+)
 
 def import_or_install(package):
     try:
@@ -46,10 +51,10 @@ logging.info(f"{font_colors['blue']} =================== {font_colors['clear']}"
 logging.info(f"{font_colors['blue']} RUNNING CI PIPELINE {font_colors['clear']}")
 logging.info(f"{font_colors['blue']} =================== {font_colors['clear']}")
 
+
 if os.path.isfile('./Dockerfile.ci'):
     import docker
     logging.info('Acquiring docker client ... ')
-    # client = docker.from_env()
     api_client = docker.APIClient(base_url='unix://var/run/docker.sock')
     client = docker.from_env()
     check_mark()
@@ -80,7 +85,7 @@ if os.path.isfile('./Dockerfile.ci'):
     ci_container = client.containers.run(
         image='ai_ci', 
         detach=True,
-        volumes=[f'{pwd}/:/home/ubuntu/coverage']
+        volumes=[f'{pwd}/:/home/ubuntu/artifacts']
     )
     process = ci_container.logs(stream=True, follow=True)
     for line in process:
