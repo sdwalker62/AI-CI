@@ -14,4 +14,4 @@ jobs:
       - name: Discord
         uses: Ilshidur/action-discord@master
         with:
-          args: '@everyone peer team sucks - GitHub Team'
+          args: '@everyone peer team is amazing - GitHub Team'

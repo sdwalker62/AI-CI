@@ -1,4 +1,9 @@
-from src.scripts.test_functions import add_one, subtract_one
+import sys
+import os
+# Append main directory
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
+
+from scripts.test_functions import add_one, subtract_one
 
 import unittest
 
