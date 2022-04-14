@@ -24,7 +24,6 @@ jobs:
         uses: lgeiger/black-action@v1.0.1
         with:
           args: ./src
-        run: pip install black
       - name: Check for modified files
         id: git-check
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
