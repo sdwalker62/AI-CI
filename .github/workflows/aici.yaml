@@ -19,9 +19,9 @@ jobs:
         with:
           python-version: 3.9
       - name: execute py script # run the run.py to get the latest data
-        run: python ci_pipeline.py
+        run: python util_ci_pipeline.py
       - name: fix coverage.py
-        run: python correct_sonar_dir.py
+        run: python util_correct_sonar_dir.py
       - name: Discord
         uses: Ilshidur/action-discord@master
         with:
