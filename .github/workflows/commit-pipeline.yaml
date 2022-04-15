@@ -42,6 +42,7 @@ jobs:
 
   Documentation:
     runs-on: ubuntu-latest
+    needs: Python_Formatting
     steps:
       - name: Clone Repository
         uses: actions/checkout@v2

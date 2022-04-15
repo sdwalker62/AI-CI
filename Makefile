@@ -17,8 +17,8 @@ help:
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	@(cd ..; \
-	scp -i sonarqube.pem -r \
-	AI-CI/docs/_build/html \
-	ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:\
-	/var/www/)
+	# @(cd ..; \
+	# scp -i sonarqube.pem -r \
+	# AI-CI/docs/_build/html \
+	# ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:\
+	# /var/www/)
