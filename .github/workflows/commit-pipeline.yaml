@@ -64,8 +64,8 @@ jobs:
           # port: ${{ secrets.PORT }}
           key: ${{ secrets.SSHKEY }}
           # passphrase: ${{ secrets.PASSPHRASE }}
-          source: "docs/_build/html"
-          target: "/var/www/"
+          source: "docs/_build/html/*"
+          target: "/var/www/html"
       - name: Discord
         uses: Ilshidur/action-discord@master
         with:
