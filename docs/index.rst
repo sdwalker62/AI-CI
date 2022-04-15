@@ -3,7 +3,7 @@ Contents
 
 .. toctree::
 
-   test_functions
+   MD/test_functions
 
 
 
