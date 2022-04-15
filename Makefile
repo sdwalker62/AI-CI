@@ -4,8 +4,8 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SOURCEDIR     = .
-BUILDDIR      = _build
+SOURCEDIR     = docs
+BUILDDIR      = docs/_build
 
 # Put it first so that "make" without argument is like "make help".
 help:
@@ -17,4 +17,8 @@ help:
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	@(cd ../..; scp -i sonarqube.pem -r AI-CI/src/_build/html ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:/var/www/)
+	@(cd ..; \
+	scp -i sonarqube.pem -r \
+	AI-CI/docs/_build/html \
+	ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:\
+	/var/www/)

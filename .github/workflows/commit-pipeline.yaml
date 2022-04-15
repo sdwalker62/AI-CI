@@ -15,7 +15,7 @@ env:
 
 
 jobs:
-  Formatting:
+  Python Formatting:
     runs-on: ubuntu-latest
     steps:
       - name: Clone Repository
@@ -39,3 +39,27 @@ jobs:
         uses: Ilshidur/action-discord@master
         with:
           args: 'Formatting {{ EVENT_PAYLOAD.repository.full_name }} has completed successfully.'
+
+  Documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v2
+      - name: Setup Sphinx
+        run: apt-get install python3-sphinx
+      - name: Generate Documentation
+        run: make html
+      - name: Update Website
+          uses: appleboy/scp-action@master              
+          with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USERNAME }}
+            # port: ${{ secrets.PORT }}
+            key: ${{ secrets.SSHKEY }}
+            # passphrase: ${{ secrets.PASSPHRASE }}
+            source: "./docs/_build/html"
+            target: "/var/www/"
+      - name: Discord
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Documentation of {{ EVENT_PAYLOAD.repository.full_name }} has completed successfully. Files have been uploaded to the server.'        
