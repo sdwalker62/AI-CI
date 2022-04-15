@@ -23,6 +23,7 @@ def subtract_one(x):
     """
     return x - 1
 
+
 def multiply_one(x):
     """
     Multiplies a number by one and returns the result.
@@ -34,22 +35,4 @@ def multiply_one(x):
     :rtype: int
     """
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     return x * 1
