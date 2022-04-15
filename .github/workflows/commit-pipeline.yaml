@@ -46,7 +46,7 @@ jobs:
       - name: Clone Repository
         uses: actions/checkout@v2
       - name: Setup Sphinx
-        run: apt-get install python3-sphinx
+        run: sudo apt-get install python3-sphinx
       - name: Generate Documentation
         run: make html
       - name: Update Website
