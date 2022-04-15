@@ -15,7 +15,7 @@ env:
 
 
 jobs:
-  Python Formatting:
+  Python_Formatting:
     runs-on: ubuntu-latest
     steps:
       - name: Clone Repository
