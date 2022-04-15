@@ -1,0 +1,10 @@
+Test Functions
+==============
+
+
+
+you can use the ``scripts.test_functions.add_one()`` function:
+.. autofunction:: scripts.test_functions.add_one
+
+you can use the ``scripts.test_functions.add_one()`` function:
+.. autofunction:: scripts.test_functions.subtract_one
