@@ -1,6 +1,6 @@
 def add_one(x):
     """
-    Adds one to a number and returns the result. HELLO 2
+    Adds one to a number and returns the result. HELLO ANDREW
 
     :param kind: Number to incremented
     :type kind: int
