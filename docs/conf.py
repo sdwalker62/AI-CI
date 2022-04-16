@@ -14,7 +14,11 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('/home/dwalker/Development/AI-CI/src/scripts'))
+
+from pathlib import Path
+
+home = str(Path.home())
+sys.path.insert(0, os.path.abspath(home + '/src/scripts'))
 
 
 # -- Project information -----------------------------------------------------
