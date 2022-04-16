@@ -18,6 +18,7 @@ import sys
 from pathlib import Path
 
 home = str(Path.home())
+print(home)
 sys.path.insert(0, os.path.abspath(home + '/src/scripts'))
 
 
