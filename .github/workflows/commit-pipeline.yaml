@@ -58,6 +58,7 @@ jobs:
         run: make html
       - name: Directory Correction
         run: |
+          pwd
           ls -la 
           cp -r docs/_build/html .
       - name: Update Website

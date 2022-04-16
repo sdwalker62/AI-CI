@@ -1,7 +1,0 @@
-API
-===
-
-.. autosummary::
-   :toctree: .
-
-   scripts/test_functions
