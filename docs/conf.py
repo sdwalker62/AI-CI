@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 home = str(Path.home()) + '/AI-CI/AI-CI'
-sys.path.insert(0, os.path.abspath(home + '/src/scripts'))
+sys.path.insert(0, os.path.abspath('/home/runner/work/AI-CI/AI-CI/src/scripts'))
 
 
 # -- Project information -----------------------------------------------------
