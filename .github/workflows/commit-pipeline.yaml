@@ -56,9 +56,9 @@ jobs:
         run: pip install sphinx_rtd_theme        
       - name: Generate Documentation
         run: make html
-      # - name: Directory Correction
-      #   run:
-
+      - name: Directory Correction
+        run: |
+          cp -r docs/_build/html .
       # - name: SCP
       #   env:
       #     PEM: ${{ secrets.SSHKEY }}
@@ -68,7 +68,6 @@ jobs:
       #     cat sonarqube.pem 
       #     scp -i sonarqube.pem -o "StrictHostKeyChecking no" -r docs/_build/html ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:/var/www/
       - name: Update Website
-        working-directory: "docs/_build"
         uses: appleboy/scp-action@master              
         with:
           host: ${{ secrets.HOST }}
