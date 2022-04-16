@@ -4,7 +4,7 @@ def add_one(x):
 
     :param kind: Number to incremented
     :type kind: int
-    :raise: ValueError: if x is non-numeric
+    :raise ValueError: if x is non-numeric
     :return: incremented value
     :rtype: int
     """
@@ -51,5 +51,5 @@ def multiply_one(x):
 
 
 
-    
+
     return x * 1
