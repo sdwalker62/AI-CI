@@ -58,10 +58,8 @@ jobs:
         run: make html
       - name: SCP
         shell: bash
-        with:
-          - PEM_FILE: ${{ secrets.SSHKEY }}
         run: |
-          echo $PEM_FILE >> sonarqube.pem
+          echo ${{ secrets.SSHKEY }} >> sonarqube.pem
           sudo chmod 400 sonarqube.pem
           scp -i sonarqube.pem -r docs/_build/html ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:/var/www/
       # - name: Update Website
