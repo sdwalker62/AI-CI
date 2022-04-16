@@ -7,7 +7,7 @@ def add_one(x):
     :raise ValueError: if x is non-numeric
     :return: incremented value
     :rtype: int
-    """
+    """s
     return x + 1
 
 
@@ -23,6 +23,7 @@ def subtract_one(x):
     """
     return x - 1
 
+
 def multiply_one(x):
     """
     Multiplies a number by one and returns the result.
@@ -33,23 +34,5 @@ def multiply_one(x):
     :return: decremented value
     :rtype: int
     """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     return x * 1
