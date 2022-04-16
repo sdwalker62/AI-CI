@@ -59,12 +59,10 @@ jobs:
       - name: SCP
         env:
           PEM: ${{ secrets.SSHKEY }}
-          KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
         run: |
-          sudo echo $KNOWN_HOSTS >> ~/.ssh/known_hosts
           echo $PEM >> sonarqube.pem
           sudo chmod 400 sonarqube.pem
-          scp -i sonarqube.pem -r docs/_build/html ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:/var/www/
+          scp -i sonarqube.pem -o "StrictHostKeyChecking no" -r docs/_build/html ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:/var/www/
       # - name: Update Website
       #   uses: appleboy/scp-action@master              
       #   with:
