@@ -68,8 +68,8 @@ jobs:
       #     cat sonarqube.pem 
       #     scp -i sonarqube.pem -o "StrictHostKeyChecking no" -r docs/_build/html ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:/var/www/
       - name: Update Website
-        uses: appleboy/scp-action@master              
         working-directory: "docs/_build"
+        uses: appleboy/scp-action@master              
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
