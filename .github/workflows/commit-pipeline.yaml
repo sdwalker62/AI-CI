@@ -57,7 +57,9 @@ jobs:
       - name: Generate Documentation
         run: make html
       - name: Directory Correction
-        run: cp -r docs/_build/html .
+        run: |
+          ls -la 
+          cp -r docs/_build/html .
       - name: Update Website
         uses: appleboy/scp-action@master              
         with:
