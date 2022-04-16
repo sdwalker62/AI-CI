@@ -57,9 +57,10 @@ jobs:
       - name: Generate Documentation
         run: make html
       - name: SCP
-        shell: bash
+        env:
+          PEM: ${{ secrets.SSHKEY }}
         run: |
-          echo ${{ secrets.SSHKEY }} >> sonarqube.pem
+          echo $PEM >> sonarqube.pem
           sudo chmod 400 sonarqube.pem
           scp -i sonarqube.pem -r docs/_build/html ubuntu@ec2-44-196-133-163.compute-1.amazonaws.com:/var/www/
       # - name: Update Website
