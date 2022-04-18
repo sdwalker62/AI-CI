@@ -48,9 +48,4 @@ def divide_one(x):
     :rtype: int
     """
 
-
-
-
-
-
     return x / 1
