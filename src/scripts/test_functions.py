@@ -41,11 +41,16 @@ def divide_one(x):
     """
     Divides a number by one and returns the result. 2
 
-    :param x: Number to be divided
+                :param x: Number to be divided
     :type x: int
     :raise ValueError: if x is non-numeric
     :return: divided value
     :rtype: int
     """
 
-    return x * 1
+
+
+
+
+
+    return x / 1
