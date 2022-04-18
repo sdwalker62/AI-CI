@@ -1,4 +1,4 @@
-name: ai-ml
+name: nightly-pipeline
 
 
 on:
