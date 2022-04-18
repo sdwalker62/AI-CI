@@ -37,12 +37,6 @@ def multiply_one(x):
     return x * 1
 
 
-
-
-
-
-
-
 def divide_one(x):
     """
     Divides a number by one and returns the result. 2
@@ -53,31 +47,5 @@ def divide_one(x):
     :return: divided value
     :rtype: int
     """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     return x * 1
