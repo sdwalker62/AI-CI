@@ -45,7 +45,7 @@ def multiply_one(x):
 
 def divide_one(x):
     """
-    Divides a number by one and returns the result.
+    Divides a number by one and returns the result. 2
 
     :param x: Number to be divided
     :type x: int
