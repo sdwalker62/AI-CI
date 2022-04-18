@@ -3,7 +3,7 @@ name: ai-ml
 on:
   push:
     branches:
-      - replace_dir
+      - master
 
 env:
   DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
