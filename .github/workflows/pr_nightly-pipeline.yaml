@@ -37,16 +37,16 @@ jobs:
       with:
         args: SonarQube for {{ EVENT_PAYLOAD.repository.full_name }} has finished.
           Check Sonarqube server for results.
-    - name: Authorize Snyk to run on account
-      run: snyk auth ${{ secrets.SNYK_TOKEN }}
-
-    - name: Running Snyk to check for vulnerabilities
-      uses: snyk/actions/node@master
+    - uses: snyk/actions/setup@master
   # continue-on-error: true # Continues Snyk analysis even if a vulnerability is found (Affects the fail or pass messsage via Discord)
+    - name: Snyk authorization
+      run: snyk auth
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        command: monitor
+    - name: Snyk scan testing code for any vulnerabilities
+      run: snyk test
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     - name: Discord
       uses: Ilshidur/action-discord@master
       with:
