@@ -39,9 +39,7 @@ jobs:
     - uses: snyk/actions/setup@master
   # continue-on-error: true # Continues Snyk analysis even if a vulnerability is found (Affects the fail or pass messsage via Discord)
     - name: Snyk authorization
-      run: snyk auth
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      run: snyk auth ${{ secrets.SNYK_TOKEN }}
     - name: Snyk scan testing code for any vulnerabilities
       run: snyk test
       env:
