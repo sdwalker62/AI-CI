@@ -3,8 +3,11 @@ on:
 	push: 
 		branches: 
 			- '*'
+
 			- '*/*'
+
 			- '**'
+
 			- '!master'
 env: 
 	DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
