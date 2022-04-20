@@ -1,6 +1,6 @@
 commit-pipeline:
   name: commit-pipeline
-  on:
+  'on':
     push:
       branches:
         - '*'
@@ -15,7 +15,7 @@ commit-pipeline:
 
 merge-pipeline:
   name: merge-pipeline
-  on:
+  'on':
     push:
       branches:
         - master
@@ -27,7 +27,7 @@ merge-pipeline:
 
 pr_nightly-pipeline:
   name: ci-pipeline
-  on:
+  'on':
     schedule:
       - cron: '0 2 * * *' # run at 2AM UTC
     pull_request:
