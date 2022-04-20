@@ -53,7 +53,7 @@ for i in range(0, len(steps)):
     workflow.writelines(parse_headers(pipeline))
 
     # Steps Header
-    workflow.writelines("\t\tsteps:\n")
+    workflow.writelines("    steps:\n")
 
     # Steps
     workflow.writelines(parse_steps(steps[i]))

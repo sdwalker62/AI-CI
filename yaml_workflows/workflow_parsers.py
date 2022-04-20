@@ -45,6 +45,8 @@ def parse_headers(pipeline, indent=0):
                     line += '\t'
                 line += f" - \'{itm}\'\n"
         line += "\n"
+
+    line = line.replace('\t', ' ')
     return line
 
 # Parse functionality yaml files for pipeline yaml
@@ -81,6 +83,8 @@ def parse_functions(pipeline, indent=2):
             else:
                 line += "\n"
                 line += parse_functions(doc, indent=indent+1)
+
+    line = line.replace('\t', ' ')
     return line
 
 # Parse steps (functionality combination) for pipeline yaml

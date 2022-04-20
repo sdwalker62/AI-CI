@@ -1,78 +1,81 @@
 name: commit-pipeline
-on:
-	push: 
-		branches: 
-			- '*'
-			- '*/*'
-			- '**'
-			- '!master'
+on: 
+ push: 
+  branches: 
+   - '*'
+
+   - '*/*'
+
+   - '**'
+
+   - '!master'
 env: 
-	DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+ DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
 jobs: 
-	Formatting-Documentation: 
-		runs-on: ubuntu-latest
-		steps:
-			- name: Clone Repository
-				uses: actions/checkout@v2
+ Formatting-Documentation: 
+  runs-on: ubuntu-latest
+    steps:
+   - name: Clone Repository
+    uses: actions/checkout@v2
 
-			- name: Setup Python
-				uses: actions/setup-python@v2
-				with: 
-					python-version: 3.9
+   - name: Setup Python
+    uses: actions/setup-python@v2
+    with: 
+     python-version: 3.9
 
-			- name: Running Black
-				uses: lgeiger/black-action@v1.0.1
-				with: 
-					args: ./src
+   - name: Running Black
+    uses: lgeiger/black-action@v1.0.1
+    with: 
+     args: ./src
 
-			- name: Check for modified files
-				id: git-check
-				run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
+   - name: Check for modified files
+    id: git-check
+    run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
 
-			- name: Setup Sphinx
-				run: sudo apt-get install python3-sphinx
+   - name: Setup Sphinx
+    run: sudo apt-get install python3-sphinx
 
-			- name: Install Theme
-				run: pip install sphinx_rtd_theme
+   - name: Install Theme
+    run: pip install sphinx_rtd_theme
 
-			- name: Generate Documentation
-				run: make html
+   - name: Generate Documentation
+    run: make html
 
-			- name: Directory Correction
-				run:  |
-					cp -r docs/_build/html .
+   - name: Directory Correction
+    run:  |
+     cp -r docs/_build/html .
 
-			- name: Update Website
-				uses: appleboy/scp-action@master
-				with: 
-					host: ${{ secrets.HOST }}
-					username: ${{ secrets.USERNAME }}
-					key: ${{ secrets.SSHKEY }}
-					source: html
-					target: /var/www/
+   - name: Update Website
+    uses: appleboy/scp-action@master
+    with: 
+     host: ${{ secrets.HOST }}
+     username: ${{ secrets.USERNAME }}
+     key: ${{ secrets.SSHKEY }}
+     source: html
+     target: /var/www/
 
-			- name: Push changes
-				if: steps.git-check.outputs.modified == 'true'
-				run:  |
-					git config --global user.name 'Samuel Walker' |
-					git config --global user.email 'sdwalker62@users.noreply.github.com' |
-					git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }} |
-					git commit -am "Automated changes" |
-					git push
-			- name: Discord
-				uses: Ilshidur/action-discord@master
-				with: 
-					args: Formatting {{ EVENT_PAYLOAD.repository.full_name }} has completed successfully.
+   - name: Push changes
+    if: steps.git-check.outputs.modified == 'true'
+    run:  |
+     git config --global user.name 'Samuel Walker' |
+     git config --global user.email 'sdwalker62@users.noreply.github.com' |
+     git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }} |
+     git commit -am "Automated changes" |
+     git push
+   - name: Discord
+    uses: Ilshidur/action-discord@master
+    with: 
+     args: Formatting {{ EVENT_PAYLOAD.repository.full_name }} has completed successfully.
 
-			- name: Running Snyck to check for vulnerabilities
-				uses: snyk/actions/node@master
-				env: 
-					SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-				with: 
-					command: monitor
+   - name: Running Snyck to check for vulnerabilities
+    uses: snyk/actions/node@master
+    env: 
+     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    with: 
+     command: monitor
 
-			- name: Discord
-				uses: Ilshidur/action-discord@master
-				with: 
-					args: Snyk vulnerability search for {{ EVENT_PAYLOAD.repository.full_name }} has finished. Check Github for results.
+   - name: Discord
+    uses: Ilshidur/action-discord@master
+    with: 
+     args: Snyk vulnerability search for {{ EVENT_PAYLOAD.repository.full_name }} has finished. Check Github for results.
 
