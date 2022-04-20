@@ -1,11 +1,11 @@
 name: commit-pipeline
 on: 
-	push: 
-		branches: 
-			- '*'
-			- '*/*'
-			- '**'
-			- '!master'
+  push: 
+    branches: 
+      - '*'
+      - '*/*'
+      - '**'
+      - '!master'
 env: 
 	DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
 jobs: 
