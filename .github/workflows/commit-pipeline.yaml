@@ -1,5 +1,5 @@
 name: commit-pipeline
-true:
+on:
   push:
     branches:
     - '*'
