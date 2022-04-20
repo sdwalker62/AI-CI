@@ -1,0 +1,54 @@
+name: merge-pipeline
+on:
+  push:
+    branches:
+    - master
+env:
+  DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+jobs:
+  CI-SONARQUBE:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone Repository
+      uses: actions/checkout@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: execute py script # run the run.py to get the latest data
+      run: python util_ci_pipeline.py
+
+    - name: fix coverage.py
+      run: python util_correct_sonar_dir.py
+    - name: Discord
+      uses: Ilshidur/action-discord@master
+      with:
+        args: Python script for {{ EVENT_PAYLOAD.repository.full_name }} has completed
+          successfully.
+    - name: SonarQube Trigger
+      uses: sonarsource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+    - name: Discord
+      uses: Ilshidur/action-discord@master
+      with:
+        args: SonarQube for {{ EVENT_PAYLOAD.repository.full_name }} has finished.
+          Check Sonarqube server for results.
+    - name: Authorize Snyk to run on account
+      uses: snyk/actions/node@master
+      run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
+    - name: Running Snyk to check for vulnerabilities
+      uses: snyk/actions/node@master
+  # continue-on-error: true # Continues Snyk analysis even if a vulnerability is found (Affects the fail or pass messsage via Discord)
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        command: monitor
+    - name: Discord
+      uses: Ilshidur/action-discord@master
+      with:
+        args: Snyk vulnerability search for {{ EVENT_PAYLOAD.repository.full_name
+          }} has finished. Check Github for results.
