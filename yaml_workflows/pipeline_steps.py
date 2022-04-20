@@ -4,7 +4,10 @@ commit_steps = [
     "black_formatter", 
     "sphinx", 
     "discord_notifier",
-    "formatting-finished" #Type of message to send for above discord notifier
+    "formatting-finished", #Type of message to send for above discord notifier
+    "snyk_analysis",
+    "discord_notifier",
+    "snyk-run", #Type of message to send for above discord notifier
 ]
 
 merge_steps = [
@@ -16,6 +19,9 @@ merge_steps = [
     "sonarqube_trigger",
     "discord_notifier",
     "sonarqube-run", #Type of message to send for above discord notifier
+    "snyk_analysis",
+    "discord_notifier",
+    "snyk-run", #Type of message to send for above discord notifier
     # TODO: Integration Tests ...
 ]
 
@@ -27,5 +33,8 @@ pr_nightly_steps = [
     "python-script", #Type of message to send for above discord notifier
     "sonarqube_trigger",
     "discord_notifier",
-    "sonarqube-run" #Type of message to send for above discord notifier
+    "sonarqube-run", #Type of message to send for above discord notifier
+    "snyk_analysis",
+    "discord_notifier",
+    "snyk-run", #Type of message to send for above discord notifier
 ]

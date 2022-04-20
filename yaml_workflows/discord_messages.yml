@@ -1,3 +1,4 @@
 formatting-finished: 'Formatting {{ EVENT_PAYLOAD.repository.full_name }} has completed successfully.'
 python-script: 'Python script for {{ EVENT_PAYLOAD.repository.full_name }} has completed successfully.'
-sonarqube-run: 'SonarQube for {{ EVENT_PAYLOAD.repository.full_name }} has finished'
+sonarqube-run: 'SonarQube for {{ EVENT_PAYLOAD.repository.full_name }} has finished. Check Sonarqube server for results.'
+snyk-run: 'Snyk vulnerability search for {{ EVENT_PAYLOAD.repository.full_name }} has finished. Check Github for results.'

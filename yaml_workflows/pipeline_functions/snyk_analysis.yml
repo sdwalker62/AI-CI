@@ -1,0 +1,7 @@
+- name: Running Snyck to check for vulnerabilities
+  uses: snyk/actions/node@master
+  # continue-on-error: true # Continues Snyk analysis even if a vulnerability is found (Affects the fail or pass messsage via Discord)
+  env:
+    SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  with:
+    command: monitor

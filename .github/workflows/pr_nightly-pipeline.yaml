@@ -1,12 +1,14 @@
-name: merge-pipeline
+name: ci-pipeline
 on: 
-	push: 
+	schedule: 
+		- cron: '0 2 * * *'
+	pull_request: 
 		branches: 
 			- 'master'
 env: 
 	DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
 jobs: 
-	CI-SONARQUBE: 
+	CI-Pipeline: 
 		runs-on: ubuntu-latest
 		steps:
 			- name: Clone Repository
