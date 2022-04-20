@@ -38,7 +38,6 @@ jobs:
         args: SonarQube for {{ EVENT_PAYLOAD.repository.full_name }} has finished.
           Check Sonarqube server for results.
     - name: Authorize Snyk to run on account
-      uses: snyk/actions/node@master
       run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
     - name: Running Snyk to check for vulnerabilities
