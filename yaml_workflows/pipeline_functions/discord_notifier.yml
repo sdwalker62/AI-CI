@@ -1,0 +1,4 @@
+- name: Discord
+  uses: Ilshidur/action-discord@master
+  with:
+    args: 'This message is replaced in workflow_compiler. Please see discord_messages for any edits!'

@@ -1,0 +1,40 @@
+commit-pipeline:
+  name: commit-pipeline
+  on:
+    push:
+      branches:
+        - '*'
+        - '*/*'
+        - '**'
+        - '!master'
+  env:
+    DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+  jobs:
+    Formatting-Documentation:
+      runs-on: ubuntu-latest
+
+merge-pipeline:
+  name: merge-pipeline
+  on:
+    push:
+      branches:
+        - master
+  env:
+    DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+  jobs:
+    CI-SONARQUBE:
+      runs-on: ubuntu-latest
+
+pr_nightly-pipeline:
+  name: ci-pipeline
+  on:
+    schedule:
+      - cron: '0 2 * * *' # run at 2AM UTC
+    pull_request:
+      branches:
+        - master
+  env:
+    DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+  jobs:
+    CI-Pipeline:
+      runs-on: ubuntu-latest
