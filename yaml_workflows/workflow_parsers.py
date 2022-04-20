@@ -25,6 +25,7 @@ def parse_steps(steps):
             pipeline[0]["with"]["args"] = discord_messages[steps[j+1]]
             skip_message = True
 
-        step_dict['steps'].append(pipeline[0])
+        for i in range(len(pipeline)):
+            step_dict['steps'].append(pipeline[i])
 
     return step_dict

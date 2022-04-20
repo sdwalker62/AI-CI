@@ -1,4 +1,8 @@
-- name: Running Snyck to check for vulnerabilities
+- name: Authorize Snyk to run on account
+  uses: snyk/actions/node@master
+  run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
+- name: Running Snyk to check for vulnerabilities
   uses: snyk/actions/node@master
   # continue-on-error: true # Continues Snyk analysis even if a vulnerability is found (Affects the fail or pass messsage via Discord)
   env:
