@@ -42,7 +42,7 @@ jobs:
     - name: Snyk authorization
       run: snyk auth ${{ secrets.SNYK_TOKEN }}
     - name: Snyk scan testing code for any vulnerabilities
-      run: snyk test
+      run: snyk test --detection-depth=5 --file=src/requirements.txt
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     - name: Discord
