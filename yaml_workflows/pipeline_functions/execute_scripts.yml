@@ -1,0 +1,5 @@
+- name: execute py script # run the run.py to get the latest data
+  run: python util_ci_pipeline.py
+  
+- name: fix coverage.py
+  run: python util_correct_sonar_dir.py

@@ -1,62 +1,80 @@
 name: commit-pipeline
-
-
 on:
   push:
     branches:
-      - '*'
-      - '*/*'
-      - '**'
-      - '!master'
-
-
+    - '*'
+    - '*/*'
+    - '**'
+    - '!master'
 env:
   DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-
-
 jobs:
   Formatting-Documentation:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Clone Repository
-        uses: actions/checkout@v2
-      - name: Setup Sphinx
-        run: sudo apt-get install python3-sphinx
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: Install Theme
-        run: pip install sphinx_rtd_theme        
-      - name: Running Black
-        uses: lgeiger/black-action@v1.0.1
-        with:
-          args: ./src
-      - name: Check for modified files
-        id: git-check
-        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
-      - name: Generate Documentation
-        run: make html
-      - name: Directory Correction
-        run: |
-          cp -r docs/_build/html .
-      - name: Update Website
-        uses: appleboy/scp-action@master              
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSHKEY }}
-          source: "html"
-          target: "/var/www/"
-      - name: Push changes
-        if: steps.git-check.outputs.modified == 'true'
-        run: |
-          git config --global user.name 'Samuel Walker'
-          git config --global user.email 'sdwalker62@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
-          git commit -am "Automated changes"
-          git push
-      - name: Discord
-        uses: Ilshidur/action-discord@master
-        with:
-          args: 'Formatting {{ EVENT_PAYLOAD.repository.full_name }} has completed successfully.'
+    - name: Clone Repository
+      uses: actions/checkout@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Running Black
+      uses: lgeiger/black-action@v1.0.1
+      with:
+        args: ./src
+
+    - name: Check for modified files
+      id: git-check
+      run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then
+        echo "false"; else echo "true"; fi)
+    - name: Setup Sphinx
+      run: sudo apt-get install python3-sphinx
+
+    - name: Install Theme
+      run: pip install sphinx_rtd_theme
+
+    - name: Generate Documentation
+      run: make html
+
+    - name: Directory Correction
+      run: |
+        cp -r docs/_build/html .
+
+    - name: Update Website
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSHKEY }}
+        source: html
+        target: /var/www/
+
+    - name: Push changes
+      if: steps.git-check.outputs.modified == 'true'
+      run: |-
+        git config --global user.name 'Samuel Walker'
+        git config --global user.email 'sdwalker62@users.noreply.github.com'
+        git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
+        git commit -am "Automated changes"
+        git push
+    - name: Discord
+      uses: Ilshidur/action-discord@master
+      with:
+        args: Formatting {{ EVENT_PAYLOAD.repository.full_name }} has completed successfully.
+    - uses: snyk/actions/setup@master
+  # continue-on-error: true # Continues Snyk analysis even if a vulnerability is found (Affects the fail or pass messsage via Discord)
+    - name: Snyk authorization
+      run: snyk auth ${{ secrets.SNYK_TOKEN }}
+    - name: Install dependencies
+      run: pip install -r src/requirements.txt
+      shell: bash
+    - name: Snyk scan testing code for any vulnerabilities
+      run: snyk test --detection-depth=5 --file=src/requirements.txt
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    - name: Discord
+      uses: Ilshidur/action-discord@master
+      with:
+        args: Snyk vulnerability search for {{ EVENT_PAYLOAD.repository.full_name
+          }} has finished. Check Github for results.

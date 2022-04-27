@@ -1,0 +1,30 @@
+- name: Setup Sphinx
+  run: sudo apt-get install python3-sphinx
+
+- name: Install Theme
+  run: pip install sphinx_rtd_theme
+
+- name: Generate Documentation
+  run: make html
+
+- name: Directory Correction
+  run: |
+    cp -r docs/_build/html .
+
+- name: Update Website
+  uses: appleboy/scp-action@master              
+  with:
+    host: ${{ secrets.HOST }}
+    username: ${{ secrets.USERNAME }}
+    key: ${{ secrets.SSHKEY }}
+    source: "html"
+    target: "/var/www/"
+
+- name: Push changes
+  if: steps.git-check.outputs.modified == 'true'
+  run: |
+    git config --global user.name 'Samuel Walker'
+    git config --global user.email 'sdwalker62@users.noreply.github.com'
+    git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
+    git commit -am "Automated changes"
+    git push

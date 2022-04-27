@@ -7,6 +7,12 @@ SPHINXBUILD   = sphinx-build
 SOURCEDIR     = docs
 BUILDDIR      = docs/_build
 
+build_workflow: 
+	@echo 'Building YAML...'
+	@pip3 install -r yaml_workflows/requirements.txt
+	@cd yaml_workflows; python3 workflow_compiler.py
+	@echo 'Build complete!'
+
 # Put it first so that "make" without argument is like "make help".
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
